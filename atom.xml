@@ -6,7 +6,7 @@
   <link href="https://quanzhou703.github.io/atom.xml" rel="self"/>
   
   <link href="https://quanzhou703.github.io/"/>
-  <updated>2024-06-24T06:34:06.500Z</updated>
+  <updated>2024-06-24T08:04:33.415Z</updated>
   <id>https://quanzhou703.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>集合框架（二）</title>
+    <link href="https://quanzhou703.github.io/posts/ffe0/"/>
+    <id>https://quanzhou703.github.io/posts/ffe0/</id>
+    <published>2024-06-24T08:04:49.076Z</published>
+    <updated>2024-06-24T08:04:33.415Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Map集合"><a href="#Map集合" class="headerlink" title="Map集合"></a>Map集合</h2><ul><li>Map集合键是不允许重复的，但是值是可以重复的。</li><li>Map&lt;K,V&gt;<ul><li>HashMap&lt;K,V&gt; 无序，不重复，无索引<ul><li>LinkedHashMap&lt;K,V&gt; 有序、不重复、无索引</li></ul></li><li>TreeMap&lt;K,V&gt; 按键大小默认升序排序、不重复、无索引</li></ul></li><li>Map系列集合的特点都是由键决定的，值只是一个附属品，值是不做要求的。</li></ul><h2 id="Map遍历方式"><a href="#Map遍历方式" class="headerlink" title="Map遍历方式"></a>Map遍历方式</h2><ul><li>键找值：先获取Map集合全部的键，再通过遍历键来找值。</li><li>键值对：把“键值对”看成一个整体进行遍历。</li><li>Lambda：JDK8之后的新技术。</li></ul><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.键找值</span></span><br><span class="line">Set&lt;String&gt; keys = map.keySet();</span><br><span class="line"><span class="keyword">for</span>(String key:keys)&#123;</span><br><span class="line">    <span class="comment">//根据键获取对应的值</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">value</span> <span class="operator">=</span> map.get(key);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//2.键值对</span></span><br><span class="line">Set&lt;Map.Entry&lt;String,String&gt;&gt; entries = map.entrySet();</span><br><span class="line"><span class="keyword">for</span>(Map.Entry&lt;String,String&gt; entry:entries)&#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">key</span> <span class="operator">=</span> entry.getKey();</span><br><span class="line">    <span class="type">String</span> <span class="variable">value</span> <span class="operator">=</span> entry.getValue();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//3.Lambda</span></span><br><span class="line">map.forEach(<span class="keyword">new</span> <span class="title class_">BiConsumer</span>&lt;String,String&gt;()&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">accept</span><span class="params">(String k,String v)</span>&#123;</span><br><span class="line">        sout(k+<span class="string">&quot;---&gt;&quot;</span>+v);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">map.forEach((k,v) -&gt; sout(k+<span class="string">&quot;---&gt;&quot;</span>+v));</span><br></pre></td></tr></table></figure><h2 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h2><p>HashMap跟HashSet的底层原理是一摸一样的，都是基于哈希表实现的。</p><p>HashSet实际就是HashMap不要值数据而已。</p><h2 id="LinkedHashMap"><a href="#LinkedHashMap" class="headerlink" title="LinkedHashMap"></a>LinkedHashMap</h2><p>有序、不重复、无索引。</p><p>底层数据结构还是基于哈希表来实现的，只是每个键值对又额外多了一个双链表的机制（头指针，尾指针）来记录元素顺序。</p><p>LinkedHashSet的底层就是依据LinkedHashMap来实现的。</p><h2 id="TreeMap"><a href="#TreeMap" class="headerlink" title="TreeMap"></a>TreeMap</h2><p>TreeMap底层原理和TreeSet一致，都是基于红黑树实现。</p><h2 id="集合的嵌套"><a href="#集合的嵌套" class="headerlink" title="集合的嵌套"></a>集合的嵌套</h2><p>集合中的元素又是一个集合。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;Map集合&quot;&gt;&lt;a href=&quot;#Map集合&quot; class=&quot;headerlink&quot; title=&quot;Map集合&quot;&gt;&lt;/a&gt;Map集合&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;Map集合键是不允许重复的，但是值是可以重复的。&lt;/li&gt;
+&lt;li&gt;Map&amp;lt;K,V&amp;gt;&lt;ul&gt;</summary>
+      
+    
+    
+    
+    <category term="Java" scheme="https://quanzhou703.github.io/categories/Java/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>集合框架</title>

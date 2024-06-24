@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://quanzhou703.github.io/posts/ffe0/</loc>
+    
+    <lastmod>2024-06-24</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://quanzhou703.github.io/posts/75dc/</loc>
     
     <lastmod>2024-06-24</lastmod>
@@ -56,6 +65,15 @@
   </url>
   
   <url>
+    <loc>https://quanzhou703.github.io/categories/index.html</loc>
+    
+    <lastmod>2023-03-02</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://quanzhou703.github.io/link/index.html</loc>
     
     <lastmod>2023-03-02</lastmod>
@@ -66,15 +84,6 @@
   
   <url>
     <loc>https://quanzhou703.github.io/tags/index.html</loc>
-    
-    <lastmod>2023-03-02</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://quanzhou703.github.io/categories/index.html</loc>
     
     <lastmod>2023-03-02</lastmod>
     
