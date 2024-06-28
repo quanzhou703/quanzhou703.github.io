@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>IO流</title>
+      <link href="/posts/1d9c/"/>
+      <url>/posts/1d9c/</url>
+      
+        <content type="html"><![CDATA[<h2 id="IO流"><a href="#IO流" class="headerlink" title="IO流"></a>IO流</h2><p>用于读写数据（可以读写文件、网络中的数据）。</p><h3 id="字符集"><a href="#字符集" class="headerlink" title="字符集"></a>字符集</h3><p>标准<strong>ASCII</strong>字符集使用1个字节来存储一个字符，首位是0，总共可表示128个字符。</p><p><strong>GBK</strong>字符集使用2个字节来存储一个中文字符，同时兼容ASCII。规定第一个字节的第1位必须是1。</p><p><strong>Unicode</strong>字符集又称统一码，可以容纳所有字符集。</p><ul><li>UTF-8，采取可变长编码方案，共分四个长度区：1个字节，2个字节，3个字节，4个字节。</li><li>UTF-8英文字符、数字等占1个字节，汉字字符占用3个字节。</li></ul><h3 id="编码-解码"><a href="#编码-解码" class="headerlink" title="编码&amp;解码"></a>编码&amp;解码</h3><p>编码：将字符按照指定字符集编码成字节。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">byte</span>[] getBytes(String charsetName);</span><br></pre></td></tr></table></figure><p>解码：将字节按照指定字符集解码为字符。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String(<span class="type">byte</span>[] bytes,String charsetName);</span><br></pre></td></tr></table></figure><h3 id="IO流概述"><a href="#IO流概述" class="headerlink" title="IO流概述"></a>IO流概述</h3><p>I：输入流，负责把数据读到内存中。</p><p>O：输出流，负责写数据出去（磁盘，网络）。</p><h3 id="字节流"><a href="#字节流" class="headerlink" title="字节流"></a>字节流</h3><h4 id="FileInputStream"><a href="#FileInputStream" class="headerlink" title="FileInputStream"></a>FileInputStream</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.构造方法,建立流管道。 </span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">FileInputStream</span><span class="params">(File file)</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="title function_">FileInputStream</span><span class="params">(String pathName)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//2.读取文件的字节数据</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">read</span><span class="params">()</span>; <span class="comment">//读取一个字节，文件结束返回-1.</span></span><br><span class="line"><span class="keyword">while</span>((b = in.read())!=-<span class="number">1</span>); <span class="comment">//循环读取。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//3.关闭流，释放系统资源。</span></span><br><span class="line">in.close();</span><br><span class="line"></span><br><span class="line">一次读一个字节存在问题：</span><br><span class="line">    读取性能差，频繁调用系统资源读取硬盘数据。</span><br><span class="line">    一次读取一个字节，碰到汉字时，会遇到乱码问题，因为汉字都是<span class="number">2</span>个或者<span class="number">3</span>个字节编码一个字符。</span><br><span class="line">    </span><br><span class="line"><span class="type">int</span> <span class="title function_">read</span><span class="params">(<span class="type">byte</span>[] buffer)</span>;</span><br><span class="line"><span class="type">int</span> len;</span><br><span class="line"><span class="type">byte</span>[] buffer = <span class="keyword">new</span> <span class="title class_">byte</span>[<span class="number">3</span>];</span><br><span class="line"><span class="keyword">while</span>((len=in.read(buffer))!=-<span class="number">1</span>)&#123;</span><br><span class="line">    sout(<span class="keyword">new</span> <span class="title class_">String</span>(buffer,<span class="number">0</span>,len));<span class="comment">//每次读取多个字节,读取多少要倒出多少</span></span><br><span class="line">&#125;</span><br><span class="line">in.close();</span><br><span class="line"></span><br><span class="line">一次读多个字节可以改善读取性能差的问题，但是可能还是会对汉字字节截断，导致乱码问题。</span><br><span class="line">解决：让buffer字节数组大小等于文件大小，一次性取出所有字节进行解码。</span><br><span class="line">readAllBytes();<span class="comment">//读取全部字节,返回字节数组</span></span><br><span class="line">文件过大的话，也可能存在内存溢出的问题</span><br></pre></td></tr></table></figure><h4 id="FileOutputStream"><a href="#FileOutputStream" class="headerlink" title="FileOutputStream"></a>FileOutputStream</h4><p>写字节数据到文件中。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.创建字节输出流管道与目标文件接通。</span></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(String path);</span><br><span class="line"><span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(String path,<span class="type">boolean</span> append);<span class="comment">//是否追加内容</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//2.开始写字节数据。</span></span><br><span class="line">out.write(<span class="type">int</span> i);<span class="comment">//写一个字节</span></span><br><span class="line">out.write(<span class="type">byte</span>[] b);<span class="comment">//写字节数组</span></span><br><span class="line">out.write(<span class="type">byte</span>[] b,<span class="type">int</span> offset,<span class="type">int</span> len);<span class="comment">//从offset位置开始写长度为len的数据</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//3.关闭流</span></span><br><span class="line">out.close();</span><br></pre></td></tr></table></figure><h4 id="文件复制"><a href="#文件复制" class="headerlink" title="文件复制"></a>文件复制</h4><p>使用文件字节输入流和文件字节输出流完成。</p><h4 id="释放资源的方式"><a href="#释放资源的方式" class="headerlink" title="释放资源的方式"></a>释放资源的方式</h4><ul><li>try-catch-finally：无论try中代码是否正常执行，还是出现异常，finally中的代码都会执行，除非JVM停止。一般用于程序执行完成后的资源释放操作。</li><li>try-with-resource：解决try-catch-finally代码臃肿的问题。资源用完后会自动关闭。资源指实现了AutoCloseable接口的类。</li></ul><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//try-with-resource</span></span><br><span class="line"><span class="keyword">try</span>(定义资源<span class="number">1</span>;定义资源<span class="number">2</span>;...)&#123;</span><br><span class="line">    可能出现异常的代码;</span><br><span class="line">&#125;<span class="keyword">catch</span>(异常类名 变量名)&#123;</span><br><span class="line">    异常的处理代码;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="字符流"><a href="#字符流" class="headerlink" title="字符流"></a>字符流</h3><h4 id="FileReader"><a href="#FileReader" class="headerlink" title="FileReader"></a>FileReader</h4><p>构造方法与字符流一样。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">read();<span class="comment">//每次读取一个字符</span></span><br><span class="line">read(<span class="type">char</span>[] buffer);<span class="comment">//每次用字符数组来读取数据</span></span><br></pre></td></tr></table></figure><h4 id="FileWriter"><a href="#FileWriter" class="headerlink" title="FileWriter"></a>FileWriter</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">FileWriter</span><span class="params">(String filepath,<span class="type">boolean</span> append)</span>;<span class="comment">//是否追加</span></span><br><span class="line"></span><br><span class="line">write(<span class="type">int</span> c);<span class="comment">//写一个字符</span></span><br><span class="line">write(String c);<span class="comment">//写一个字符串</span></span><br><span class="line">write(String c,<span class="type">int</span> pos,<span class="type">int</span> len);<span class="comment">//写字符串一部分</span></span><br><span class="line">write(<span class="type">char</span>[] buffer);<span class="comment">//写字符数组</span></span><br><span class="line">write(<span class="type">char</span>[] buffer,<span class="type">int</span> pos,<span class="type">int</span> len);<span class="comment">//写字符数组的一部分</span></span><br></pre></td></tr></table></figure><p><strong>注意：字符输出流写出数据后（实际是写入到缓冲区），必须刷新流，或者关闭流，写出去的数据才能生效。</strong></p><p>字节流适用于一切文件数据的拷贝（音视频，文本）；字节流不适合读取中文内容输出。</p><p>字符流适合做文本文件的操作（读，写）。</p><h3 id="缓冲流"><a href="#缓冲流" class="headerlink" title="缓冲流"></a>缓冲流</h3><p>原理：缓冲流会在内存中创建一个缓冲池，读写数据的时候，先把数据放到缓冲池中，可以减少系统调用，提高性能。</p><p>硬盘 &#x3D;&gt; 输入缓冲池 &#x3D;&gt; 字节（字符）数组 &#x3D;&gt; 输出缓冲池 &#x3D;&gt; 硬盘</p><p>缓冲池相当于一个中间缓存平台，字节（字符）数组从中读写数据（在内存中操作）。</p><p>步骤：对原始的字节流、字符流进行包装。</p><h4 id="BufferedInputStream-BufferedOutputStream"><a href="#BufferedInputStream-BufferedOutputStream" class="headerlink" title="BufferedInputStream&amp;BufferedOutputStream"></a>BufferedInputStream&amp;BufferedOutputStream</h4><p>默认设置8K的字节缓冲池，也可以自行更改。</p><h4 id="BufferedReader-BufferedWriter"><a href="#BufferedReader-BufferedWriter" class="headerlink" title="BufferedReader&amp;BufferedWriter"></a>BufferedReader&amp;BufferedWriter</h4><p>默认设置8K的字符缓冲池，也可以自行更改。</p><p><strong>注意：低级字节流不一定比缓冲流慢，当字节（字符）数组开辟的比较大的时候，性能和缓冲流差不多。</strong></p><h3 id="转换流"><a href="#转换流" class="headerlink" title="转换流"></a>转换流</h3><p>为什么需要转换流？</p><p>代码的编码如果与要读取的文件编码不一致时，会产生乱码现象。</p><p>转换流可以设置读写的字符集。</p><h4 id="InputStreamReader"><a href="#InputStreamReader" class="headerlink" title="InputStreamReader"></a>InputStreamReader</h4><p>解决乱码思路：先获取文件的原始字节流，再将其按照真实的字符集编码转成字符输入流，这样字符输入流中的字符就不乱码了。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">InputStreamReader</span><span class="params">(InputStream is,String charset)</span> <span class="comment">//把原始的字节输入流，按照指定字符集编码转成字符输入流</span></span><br></pre></td></tr></table></figure><h4 id="OutputStreamWriter"><a href="#OutputStreamWriter" class="headerlink" title="OutputStreamWriter"></a>OutputStreamWriter</h4><p>需要控制写出去的字符使用什么字符集编码。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">OutputStreamWriter</span><span class="params">(OutputStream out,String charset)</span> <span class="comment">//把原始的字节输出流，按照指定字符集编码转成字符输出流</span></span><br></pre></td></tr></table></figure><h3 id="打印流"><a href="#打印流" class="headerlink" title="打印流"></a>打印流</h3><p>作用：打印流可以实现更方便、更高效地打印数据出去。代码写地啥，打印就是啥，不会出现代码写的’a’,打印97。</p><h4 id="PrintStream"><a href="#PrintStream" class="headerlink" title="PrintStream"></a>PrintStream</h4><h4 id="PrintWriter"><a href="#PrintWriter" class="headerlink" title="PrintWriter"></a>PrintWriter</h4><p>System.out默认指向控制台，也可以重定向输出流。</p><p>System.setOut(PrintStream ps);&#x2F;&#x2F;设置输出流</p><h3 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h3><p>允许将数据和其类型一并写出去。</p><h4 id="DataInputStream"><a href="#DataInputStream" class="headerlink" title="DataInputStream"></a>DataInputStream</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">readByte(<span class="type">int</span> v);<span class="comment">//写byte数据</span></span><br><span class="line">readreadInt(<span class="type">int</span> v);<span class="comment">//写int数据</span></span><br><span class="line">readDouble(Double d);<span class="comment">//写double数据</span></span><br><span class="line">readUTF(String s);<span class="comment">//将字符串按utf-8的编码写入输出流</span></span><br></pre></td></tr></table></figure><h4 id="DataOutputStream"><a href="#DataOutputStream" class="headerlink" title="DataOutputStream"></a>DataOutputStream</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">writeByte(<span class="type">int</span> v);<span class="comment">//写byte数据</span></span><br><span class="line">writeInt(<span class="type">int</span> v);<span class="comment">//写int数据</span></span><br><span class="line">writeDouble(Double d);<span class="comment">//写double数据</span></span><br><span class="line">writeUTF(String s);<span class="comment">//将字符串按utf-8的编码写入输出流</span></span><br></pre></td></tr></table></figure><h3 id="序列化流"><a href="#序列化流" class="headerlink" title="序列化流"></a>序列化流</h3><p>对象如果需要序列化，必须实现Serializable接口。</p><p><strong>注意：不想要参与序列化的参数，比如密码，可以添加修饰符transient进行修饰。</strong></p><p>对象序列化：把Java对象写入到文件中去。</p><p>对象反序列化：把文件中的Java对象读出来。</p><h4 id="ObjectInputStream"><a href="#ObjectInputStream" class="headerlink" title="ObjectInputStream"></a>ObjectInputStream</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">writeObject(Object o);</span><br></pre></td></tr></table></figure><h4 id="ObjectOutputStream"><a href="#ObjectOutputStream" class="headerlink" title="ObjectOutputStream"></a>ObjectOutputStream</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">readObject();</span><br></pre></td></tr></table></figure><h3 id="IO框架"><a href="#IO框架" class="headerlink" title="IO框架"></a>IO框架</h3><ul><li>框架指解决某类问题，编写的一套类、接口等，可以理解成一个半成品，大多框架都是第三方研发。</li><li>框架的形式一般是把类、接口等编译成class形式，再压缩成jar包发行出去。</li></ul><h4 id="commons-io"><a href="#commons-io" class="headerlink" title="commons-io"></a>commons-io</h4><ul><li>apache开源基金组织提供的一组有关IO操作的小框架，目的是提高IO流的开发效率。</li></ul><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//FileUtils类</span></span><br><span class="line">copyFile(File src,File dest);<span class="comment">//复制文件</span></span><br><span class="line">...</span><br><span class="line">...</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> Java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Java基础学习笔记 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Stream流</title>
       <link href="/posts/b543/"/>
       <url>/posts/b543/</url>
@@ -17,6 +42,12 @@
           
       </categories>
       
+      
+        <tags>
+            
+            <tag> Java基础学习笔记 </tag>
+            
+        </tags>
       
     </entry>
     
@@ -37,6 +68,12 @@
       </categories>
       
       
+        <tags>
+            
+            <tag> Java基础学习笔记 </tag>
+            
+        </tags>
+      
     </entry>
     
     
@@ -55,6 +92,12 @@
           
       </categories>
       
+      
+        <tags>
+            
+            <tag> Java基础学习笔记 </tag>
+            
+        </tags>
       
     </entry>
     
@@ -75,6 +118,12 @@
       </categories>
       
       
+        <tags>
+            
+            <tag> Java基础学习笔记 </tag>
+            
+        </tags>
+      
     </entry>
     
     
@@ -93,6 +142,12 @@
           
       </categories>
       
+      
+        <tags>
+            
+            <tag> Java基础学习笔记 </tag>
+            
+        </tags>
       
     </entry>
     
@@ -113,6 +168,12 @@
       </categories>
       
       
+        <tags>
+            
+            <tag> Java基础学习笔记 </tag>
+            
+        </tags>
+      
     </entry>
     
     
@@ -132,6 +193,12 @@
       </categories>
       
       
+        <tags>
+            
+            <tag> Java基础学习笔记 </tag>
+            
+        </tags>
+      
     </entry>
     
     
@@ -150,6 +217,12 @@
           
       </categories>
       
+      
+        <tags>
+            
+            <tag> Java基础学习笔记 </tag>
+            
+        </tags>
       
     </entry>
     
