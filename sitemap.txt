@@ -16,7 +16,7 @@ https://quanzhou703.github.io/link/index.html
 https://quanzhou703.github.io/categories/index.html
 https://quanzhou703.github.io/tags/index.html
 https://quanzhou703.github.io/
-https://quanzhou703.github.io/tags/JavaWeb%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/
 https://quanzhou703.github.io/tags/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/
-https://quanzhou703.github.io/categories/JavaWeb/
+https://quanzhou703.github.io/tags/JavaWeb%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/
 https://quanzhou703.github.io/categories/Java/
+https://quanzhou703.github.io/categories/JavaWeb/
