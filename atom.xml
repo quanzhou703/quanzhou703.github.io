@@ -6,7 +6,7 @@
   <link href="https://quanzhou703.github.io/atom.xml" rel="self"/>
   
   <link href="https://quanzhou703.github.io/"/>
-  <updated>2024-07-05T07:27:46.221Z</updated>
+  <updated>2024-07-06T03:29:49.022Z</updated>
   <id>https://quanzhou703.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>JS</title>
+    <link href="https://quanzhou703.github.io/posts/5d77/"/>
+    <id>https://quanzhou703.github.io/posts/5d77/</id>
+    <published>2024-07-06T03:30:15.947Z</published>
+    <updated>2024-07-06T03:29:49.022Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="JS"><a href="#JS" class="headerlink" title="JS"></a>JS</h2><h3 id="JS引入方式"><a href="#JS引入方式" class="headerlink" title="JS引入方式"></a>JS引入方式</h3><ul><li><p><strong>内部脚本</strong>：将JS代码定义在HTML页面中</p><ul><li>js代码必须位于<script></script>标签之间</li><li>在HTML文档中，可以在任意地方，放置任意数量的<script></li><li>一般会把脚本置于<body>元素的底部，可改善显示速度</li></ul></li><li><p><strong>外部脚本</strong></p><ul><li>外部JS文件中，只包含JS代码，不包含<script>标签</li><li><script>标签不能自闭合</li></ul></li></ul><h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p><strong>特点</strong></p><ul><li>var声明的变量是全局变量，作用域比较大。</li><li>var声明的变量可以重复定义，后面的变量会覆盖前面的。</li></ul><img src="/posts/null/var&let.png" class="" title="var&amp;let"><h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><img src="/posts/null/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.png" class="" title="数据类型"><h3 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h3><img src="/posts/null/%E8%BF%90%E7%AE%97%E7%AC%A6.png" class="" title="运算符"><h3 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h3><h4 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h4><img src="/posts/null/%E5%AF%B9%E8%B1%A1-%E6%95%B0%E7%BB%84.png" class="" title="对象-数组"><h4 id="String"><a href="#String" class="headerlink" title="String"></a>String</h4><img src="/posts/null/%E5%AF%B9%E8%B1%A1-String.png" class="" title="对象-String"><h4 id="自定义对象"><a href="#自定义对象" class="headerlink" title="自定义对象"></a>自定义对象</h4><img src="/posts/null/%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AF%B9%E8%B1%A1.png" class="" title="自定义对象"><h4 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h4><img src="/posts/null/JSON%E4%BB%8B%E7%BB%8D.png" class="" title="JSON介绍"><img src="/posts/null/Json%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2.png" class="" title="Json数据格式转换"><h4 id="BOM"><a href="#BOM" class="headerlink" title="BOM"></a>BOM</h4><h5 id="Window"><a href="#Window" class="headerlink" title="Window"></a>Window</h5><img src="/posts/null/Window.png" class="" title="Window"><h4 id="DOM"><a href="#DOM" class="headerlink" title="DOM"></a>DOM</h4><img src="/posts/null/DOM%E6%A0%91.png" class="" title="DOM树"><img src="/posts/null/%E8%8E%B7%E5%8F%96DOM%E5%85%83%E7%B4%A0.png" class="" title="获取DOM元素"><h3 id="事件监听"><a href="#事件监听" class="headerlink" title="事件监听"></a>事件监听</h3><h5 id="事件绑定"><a href="#事件绑定" class="headerlink" title="事件绑定"></a>事件绑定</h5><img src="/posts/null/%E4%BA%8B%E4%BB%B6%E7%BB%91%E5%AE%9A.png" class="" title="事件绑定"><h5 id="常见事件"><a href="#常见事件" class="headerlink" title="常见事件"></a>常见事件</h5><img src="/posts/null/%E5%B8%B8%E8%A7%81%E4%BA%8B%E4%BB%B6.png" class="" title="常见事件">]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;JS&quot;&gt;&lt;a href=&quot;#JS&quot; class=&quot;headerlink&quot; title=&quot;JS&quot;&gt;&lt;/a&gt;JS&lt;/h2&gt;&lt;h3 id=&quot;JS引入方式&quot;&gt;&lt;a href=&quot;#JS引入方式&quot; class=&quot;headerlink&quot; title=&quot;JS引入方式&quot;&gt;&lt;/a&gt;J</summary>
+      
+    
+    
+    
+    <category term="JavaWeb" scheme="https://quanzhou703.github.io/categories/JavaWeb/"/>
+    
+    
+    <category term="JavaWeb学习笔记" scheme="https://quanzhou703.github.io/tags/JavaWeb%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
   
   <entry>
     <title>HTML</title>
